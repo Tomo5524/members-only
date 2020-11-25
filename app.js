@@ -6,6 +6,14 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+const mongoose = require("mongoose");
+// needs model module
+require("dotenv").config();
+const mongoDb = process.env.MONGODB_URI;
+mongoose.connect(mongoDb, { useUnifiedTopology: true, useNewUrlParser: true });
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "mongo connection error"));
+
 var indexRouter = require("./routes/index");
 
 var app = express();
