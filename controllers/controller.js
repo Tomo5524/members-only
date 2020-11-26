@@ -19,7 +19,9 @@ exports.signup_get = function (req, res, next) {
 // };
 
 exports.login_get = function (req, res, next) {
-  res.render("login", { title: "Login" });
+  // console.log("currentUser/////");
+  console.log(req.body, "currentUser/////");
+  res.render("login", { title: "Login", user: req.user });
 };
 
 exports.allusers = function (req, res, next) {
