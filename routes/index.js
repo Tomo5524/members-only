@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
 var app = express();
-const passport = require("passport");
 const bcrypt = require("bcryptjs");
 
 var User = require("../models/user");
@@ -9,7 +8,7 @@ const Controllers = require("../controllers/controller");
 // const login_controller = require("./login");
 
 const session = require("express-session");
-// const passport = require("passport");
+const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 
 passport.use(
@@ -60,7 +59,7 @@ router.post(
   "/login",
   passport.authenticate("local", {
     successRedirect: "/login",
-    failureRedirect: "/sign-up",
+    failureRedirect: "/login",
   })
 );
 
