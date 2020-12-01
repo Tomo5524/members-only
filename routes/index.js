@@ -7,46 +7,51 @@ var User = require("../models/user");
 const Controllers = require("../controllers/controller");
 // const login_controller = require("./login");
 
-const session = require("express-session");
+// const session = require("express-session");
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
+// const LocalStrategy = require("passport-local").Strategy;
 
-passport.use(
-  new LocalStrategy((username, password, done) => {
-    User.findOne({ username: username }, (err, user) => {
-      if (err) {
-        return done(err);
-      }
-      if (!user) {
-        return done(null, false, { msg: "Incorrect username" });
-      }
-      if (user.password !== password) {
-        return done(null, false, { msg: "Incorrect password" });
-      }
-      return done(null, user);
-    });
-  })
-);
+// passport.use(
+//   new LocalStrategy((username, password, done) => {
+//     User.findOne({ username: username }, (err, user) => {
+//       if (err) {
+//         return done(err);
+//       }
+//       if (!user) {
+//         return done(null, false, { msg: "Incorrect username" });
+//       }
+//       bcrypt.compare(password, user.password, (err, res) => {
+//         if (res) {
+//           // passwords match! log user in
+//           return done(null, user);
+//         } else {
+//           // passwords do not match!
+//           return done(null, false, { msg: "Incorrect password" });
+//         }
+//       });
+//     });
+//   })
+// );
 
-passport.serializeUser(function (user, done) {
-  done(null, user.id);
-});
+// passport.serializeUser(function (user, done) {
+//   done(null, user.id);
+// });
 
-passport.deserializeUser(function (id, done) {
-  User.findById(id, function (err, user) {
-    done(err, user);
-  });
-});
+// passport.deserializeUser(function (id, done) {
+//   User.findById(id, function (err, user) {
+//     done(err, user);
+//   });
+// });
 
-// session middleware
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
+// // session middleware
+// app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-app.use(function (req, res, next) {
-  res.locals.currentUser = req.user;
-  next();
-});
+// app.use(function (req, res, next) {
+//   res.locals.currentUser = req.user;
+//   next();
+// });
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
@@ -82,11 +87,16 @@ router.post("/sign-up", (req, res, next) => {
         return next(err);
       }
       console.log("login succssed");
-      res.redirect("/");
+      res.redirect("/login");
     });
   });
 });
 
 router.get("/allusers", Controllers.allusers);
+
+router.get("/log-out", (req, res) => {
+  req.logout();
+  res.redirect("/");
+});
 
 module.exports = router;
