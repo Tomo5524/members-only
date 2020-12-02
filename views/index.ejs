@@ -5,10 +5,14 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <h3>みゃお</h3>
+    <%- include nav.ejs %>
+    <!-- show message if user is member -->
+    <!-- regardless, populate messages -->
+
+    <h3><%= title %></h3>
+    <h4>みゃお</h4>
     <p>Welcome to <%= title %></p>
-    <a href="/login">Go to Login</a>
-    <a href="/sign-up">Go to sign-up</a>
+    <a href="/allmessages">Go to allmessages</a>
+    <!-- create message model -->
   </body>
 </html>
