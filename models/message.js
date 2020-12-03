@@ -7,6 +7,7 @@ const messageSchema = new Schema({
   message: { type: String, required: true },
   date: { type: String, required: true },
   userName: { type: String, required: true },
+  userId: { type: String, required: true },
   // when they go to their page, they can see all the messages they posted
 });
 

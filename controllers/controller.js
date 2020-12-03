@@ -48,8 +48,9 @@ exports.add_message_post = [
     var newMessage = new Message({
       title: req.body.title,
       message: req.body.message,
-      date: moment().calendar(),
+      date: moment().format("ll"),
       userName: req.user.username,
+      userId: req.user.id,
     });
 
     if (!errors.isEmpty()) {
@@ -62,12 +63,29 @@ exports.add_message_post = [
       return;
     } else {
       // Data from form is valid.
+      // console.log(req.user.id);
+      User.findByIdAndUpdate(
+        req.user.id,
+        {
+          $push: {
+            messages: { message: req.body.message, date: newMessage.date },
+          },
+        },
+        function (err, new_message) {
+          if (err) {
+            return next(err);
+          }
+        }
+      );
+
+      // console.log(allMessages);
+      // allMessages.push(newMessage);
+      ////
       newMessage.save(function (err) {
         if (err) {
           return next(err);
         }
-        // Genre saved. Redirect to genre detail page.
-        // console.log(new_genre);
+        // add new message to user message array
         res.redirect("/");
       });
     }
@@ -83,6 +101,22 @@ exports.allusers = function (req, res, next) {
     // console.log(items);
     // res.render("items", { title: "All the items", items });
     res.status(200).json(users);
+  });
+};
+
+exports.user_detail = function (req, res, next) {
+  User.findById(req.params.id).exec(function (err, result) {
+    if (err) {
+      return next(err);
+    }
+    if (result == null) {
+      // No results.
+      var err = new Error("User not found");
+      err.status = 404;
+      return next(err);
+    }
+    // Successful, so render.
+    res.render("user_detail", { result });
   });
 };
 

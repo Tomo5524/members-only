@@ -7,7 +7,8 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   isMember: { type: Boolean, default: false },
   // when they go to their page, they can see all the messages they posted
-  message: { type: String, default: "" },
+  messages: [{ type: [Object] }],
+  joinedDate: { type: String },
 });
 
 // this returns the absolute URL required to get a particular instance of the model

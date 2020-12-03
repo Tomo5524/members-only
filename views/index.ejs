@@ -8,11 +8,23 @@
     <%- include nav.ejs %>
     <!-- show message if user is member -->
     <!-- regardless, populate messages -->
-
-    <h3><%= title %></h3>
-    <h4>みゃお</h4>
-    <p>Welcome to <%= title %></p>
-    <a href="/allmessages">Go to allmessages</a>
+    <div class="containr">
+      <h3><%= title %></h3>
+      <h4>みゃお</h4>
+      <p>Welcome to <%= title %></p>
+      <a href="/allmessages">Go to allmessages</a>
+      <a href="/allusers">See All users</a>
+      <div class="col-6"></div>
+      <% messages.forEach(res =>{ %> 
+        <div class="px-2 text-center border">       
+          <h5>Title: <%= res.title %></h5>
+          <h6>Message: <%= res.message %></h6>
+          <p>Date: <%= res.date %></p>    
+          <a class="text-dark" href="user/<%= res.userId %>"><h5><%= res.userName %> </h5></a>                        
+        </div>
+    <% }); %> 
+    </div>
+    
     <!-- create message model -->
   </body>
 </html>
