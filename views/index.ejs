@@ -13,16 +13,23 @@
       <h4>みゃお</h4>
       <p>Welcome to <%= title %></p>
       <a href="/allmessages">Go to allmessages</a>
-      <a href="/allusers">See All users</a>
-      <div class="col-6"></div>
-      <% messages.forEach(res =>{ %> 
-        <div class="px-2 text-center border">       
-          <h5>Title: <%= res.title %></h5>
-          <h6>Message: <%= res.message %></h6>
-          <p>Date: <%= res.date %></p>    
-          <a class="text-dark" href="user/<%= res.userId %>"><h5><%= res.userName %> </h5></a>                        
-        </div>
-    <% }); %> 
+      <a href="/allusers">See All users</a>      
+        <% if (messages.length === 0) {%>
+          <div class="d-flex justify-content-center align-items-center py-5">
+            <h2>Post message you want to send out there!</h2>
+          </div>            
+        <% } else { %>
+          <div class="col-6 mx-auto">
+            <% messages.forEach(res =>{ %> 
+              <div class="text-center border">       
+                <h5>Title: <%= res.title %></h5>
+                <h6>Message: <%= res.message %></h6>
+                <p>Date: <%= res.date %></p>    
+                <a class="text-dark" href="user/<%= res.userId %>"><h5><%= res.userName %> </h5></a>                        
+              </div>
+            <% }); %> 
+          </div>          
+        <%}%>                  
     </div>
     
     <!-- create message model -->

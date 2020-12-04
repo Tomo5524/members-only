@@ -24,7 +24,7 @@ exports.signup_get = function (req, res, next) {
 exports.login_get = function (req, res, next) {
   // console.log("currentUser/////");
   // console.log(req.body, "currentUser///// in login get");
-  res.render("login", { title: "Login" });
+  res.render("login", { error: req.flash("error") });
 };
 
 exports.add_message = function (req, res, next) {

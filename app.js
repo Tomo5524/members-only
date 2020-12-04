@@ -1,11 +1,19 @@
 // DEBUG=members-only:* npm run devstart
 
+// UX design
+// see message but put a blur on title and message on home page
+// if they login or sign up, take it off
+// add delete function for those who became admin
+// if a user joins the club, the ability to post and to see users detail (joined date and name and messages) will be granted
+// if a user becomes admin, the ability to delete messages will be granted
+// fix user detail UI
+
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
+var flash = require("connect-flash");
 const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const passport = require("passport");
@@ -29,6 +37,7 @@ app.set("view engine", "ejs");
 app.use(logger("dev"));
 app.use(express.json());
 app.use(cookieParser());
+app.use(flash());
 app.use(express.static(path.join(__dirname, "public")));
 
 passport.use(
@@ -38,7 +47,7 @@ passport.use(
         return done(err);
       }
       if (!user) {
-        return done(null, false, { msg: "Incorrect username" });
+        return done(null, false, { message: "Incorrect username" });
       }
       bcrypt.compare(password, user.password, (err, res) => {
         if (res) {
@@ -46,7 +55,7 @@ passport.use(
           return done(null, user);
         } else {
           // passwords do not match!
-          return done(null, false, { msg: "Incorrect password" });
+          return done(null, false, { message: "Incorrect password" });
         }
       });
     });
