@@ -11,3 +11,7 @@ a {
   font-weight: 700;
   background-color: #d6eaf8;
 }
+
+.box-radius {
+  border-radius: 10px;
+}

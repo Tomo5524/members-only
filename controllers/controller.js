@@ -24,7 +24,8 @@ exports.signup_get = function (req, res, next) {
 exports.login_get = function (req, res, next) {
   // console.log("currentUser/////");
   // console.log(req.body, "currentUser///// in login get");
-  res.render("login", { error: req.flash("error") });
+  // console.log(req.flash("error"), "error/////");
+  res.render("login", { errorMessage: req.flash("error") });
 };
 
 exports.add_message = function (req, res, next) {
@@ -68,7 +69,11 @@ exports.add_message_post = [
         req.user.id,
         {
           $push: {
-            messages: { message: req.body.message, date: newMessage.date },
+            messages: {
+              title: req.body.title,
+              message: req.body.message,
+              date: newMessage.date,
+            },
           },
         },
         function (err, new_message) {
@@ -116,6 +121,7 @@ exports.user_detail = function (req, res, next) {
       return next(err);
     }
     // Successful, so render.
+    // console.log(result, "result////////");
     res.render("user_detail", { result });
   });
 };

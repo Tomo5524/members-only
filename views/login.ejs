@@ -9,40 +9,39 @@
   </head>
   <body>
     <% if (currentUser) {%>
-      <h1>WELCOME BACK <%= currentUser.username %></h1>
-      <a href="/allusers">See All users</a>
-      <a href="/log-out">LOG OUT</a>
-      <a href="/">Go back home</a>
-      <a class="nav-link" href="/add-message"><button type="button" class="btn btn-primary">Add New Message</button></a>
+      <div class="vh-100 d-flex flex-column justify-content-center align-items-center">
+        <h1>You are already logged in</h1>   
+        <a href="/"><button type="button" class="btn btn-primary">Go back home</button></a>  
+      </div>        
     <% } else { %>
-    <form action="" method="POST">
-      <div class="container col-6">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input
-            type="text"
-            class="form-control"
-            name="username"
-            placeholder="Enter Username"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            name="password"
-            placeholder="Enter Password"
-            required
-          />
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </div>      
-    </form>    
-    <%if (error) { %>
-      <p><%= error %></p>
-    <% } %>
+    <div class="container col-6">
+      <form action="" method="POST">        
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              name="username"
+              placeholder="Enter Username"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              name="password"
+              placeholder="Enter Password"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>            
+      </form>   
+      <%if (errorMessage) { %>
+        <h3 class="text-danger my-3"><%= errorMessage %></h3>
+      <% } %>
+    </div>    
     <a href="/allusers">See All users</a>
     <%}%>    
   </body>

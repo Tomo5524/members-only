@@ -1,13 +1,5 @@
 // DEBUG=members-only:* npm run devstart
 
-// UX design
-// see message but put a blur on title and message on home page
-// if they login or sign up, take it off
-// add delete function for those who became admin
-// if a user joins the club, the ability to post and to see users detail (joined date and name and messages) will be granted
-// if a user becomes admin, the ability to delete messages will be granted
-// fix user detail UI
-
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
