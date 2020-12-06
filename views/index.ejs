@@ -15,10 +15,11 @@
       <p>Welcome to <%= title %></p>       -->
       <% if (currentUser) {%>
         <div class="d-flex justify-content-around py-4">
-          <h1>WELCOME BACK <%= currentUser.username %></h1>
+          <h1>WELCOME BACK <a class="text-dark" href="user/<%= currentUser.id %>"><%= currentUser.username %></a></h1>           
           <div class="d-flex">
             <a href="/add-message"><button type="button" class="btn btn-primary mr-2">Add New Message</button></a>
-            <a href="/log-out"><button type="button" class="btn btn-danger">LOG OUT</button></a>
+            <a href="/log-out"><button type="button" class="btn btn-danger mr-2">LOG OUT</button></a>
+            <a href="/admin"><button type="button" class="btn btn-info">Are you admin?</button></a>
           </div>          
         </div>                         
       <% } %>  
@@ -53,9 +54,9 @@
             </div>              
           <% }); %> 
         </div>          
-      <%}%> 
-      <a href="/allmessages" class="btn btn-light mt-2">Message API</a>
-      <a href="/allusers" class="btn btn-light mt-4">Users API</a>                  
+      <%}%>
+      <a href="/allmessages" class="btn btn-light">Message API</a>
+      <a href="/allusers" class="btn btn-light">Users API</a>                           
     </div>       
   </body>
 </html>

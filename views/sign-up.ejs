@@ -8,30 +8,45 @@
     <link rel='stylesheet', href='/stylesheets/style.css'/> 
   </head>
   <body>
-    <form action="" method="POST"> 
-      <div class="container col-6">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" class="form-control" name="username" placeholder="Enter Username" required>
-        </div>
-        <div class="form-group">
-          <label for="firstname">First Name</label>
-          <input type="text" class="form-control" name="firstname" placeholder="Optional">
-        </div>
-        <div class="form-group">
-          <label for="lastname">Last Name</label>
-          <input type="text" class="form-control" name="lastname" placeholder="Optional">
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control"  name="password" placeholder="Enter Password" required>
-        </div> 
-        <div class="form-group">
-          <label for="confirmPassword">Confirm Pasword</label>
-          <input type="password" class="form-control" name="confirmPassword" placeholder="Enter the smae Password ablove to confirm" required>
+    <% if (currentUser) {%>
+      <div class="d-flex vh-100 justify-content-center align-items-center col-6 mx-auto">
+        <div class="box-radius border p-3">
+          <h3>To Create a new user, you must log out first</h3>  
+          <div class="d-flex">
+            <a href="/log-out"><button type="button" class="btn btn-danger mr-3">LOG OUT</button></a>                      
+            <a href="/"><button type="button" class="btn btn-primary">Go back home</button></a> 
+          </div>  
+        </div>             
+      </div>                           
+    <% } else { %>
+      <form action="" method="POST"> 
+        <div class="container col-6">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username" placeholder="Enter Username" required>
+          </div>
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" name="firstName" placeholder="Optional">
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" name="lastName" placeholder="Optional">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control"  name="password" placeholder="Enter Password" required>
+          </div> 
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Pasword</label>
+            <input type="password" class="form-control" name="confirmPassword" placeholder="Enter the smae Password ablove to confirm" required>
+          </div>      
+          <button type="submit" class="btn btn-primary">Sign Up</button>
+          <% if (typeof errorMessage !== 'undefined')  {%>
+            <h3 class="text-danger my-3"><%= errorMessage %></h3>                   
+          <% } %>
         </div>      
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </div>      
-    </form>
+      </form> 
+    <%}%>
   </body>
 </html>

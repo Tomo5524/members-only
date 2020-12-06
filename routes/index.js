@@ -31,6 +31,14 @@ router.get("/home", function (req, res, next) {
 router.get("/login", Controllers.login_get);
 router.get("/sign-up", Controllers.signup_get);
 router.get("/user/:id", Controllers.user_detail);
+router.get("/add-message", Controllers.add_message);
+router.post("/add-message", Controllers.add_message_post);
+router.get("/user/:id/edit", Controllers.edit_user);
+router.post("/user/:id/edit", Controllers.edit_user_post);
+router.get("/user/:id/delete", Controllers.delete_user);
+router.post("/user/:id/delete", Controllers.delete_user_post);
+router.get("/admin", Controllers.admin_get);
+router.post("/admin", Controllers.admin_post);
 
 // when login fails, populate error message
 router.post(
@@ -49,14 +57,21 @@ router.post("/sign-up", (req, res, next) => {
       return next(err);
     }
     // check if user input of password and confirmedpassword are the same
+    // display error message
     if (req.body.password !== req.body.confirmPassword) {
-      return next(err);
+      res.render("sign-up", {
+        title: "SignUp",
+        errorMessage: "password and confirmPassword must be the same ",
+      });
+      return;
     }
     const user = new User({
       username: req.body.username,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       password: hashedPassword, // hased pwd, returns "$2a$10$/CSA/6FrrB7h.FLXcBA3auQRdx9qWUzh8kL4dOyY7MQLK9G8ULfyS"
       joinedDate: moment().format("ll"),
-      message: [],
+      messages: [],
     }).save((err) => {
       if (err) {
         return next(err);
@@ -67,17 +82,22 @@ router.post("/sign-up", (req, res, next) => {
   });
 });
 
-router.get("/add-message", Controllers.add_message);
-
-router.post("/add-message", Controllers.add_message_post);
-
 router.get("/allusers", Controllers.allusers);
 
 router.get("/allmessages", Controllers.allmessages);
 
 router.get("/log-out", (req, res) => {
-  req.logout();
-  res.redirect("/");
+  User.findByIdAndUpdate(
+    req.user.id,
+    { $set: { isAdmin: false } },
+    function (err, new_message) {
+      if (err) {
+        return next(err);
+      }
+      req.logout();
+      res.redirect("/");
+    }
+  );
 });
 
 module.exports = router;

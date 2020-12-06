@@ -4,8 +4,10 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   // username: { type: String, required: true, index: { unique: true } },
   username: { type: String, required: true },
+  firstName: { type: String },
+  lastName: { type: String },
   password: { type: String, required: true },
-  isMember: { type: Boolean, default: false },
+  isAdmin: { type: Boolean, default: false },
   // when they go to their page, they can see all the messages they posted
   messages: [{ type: [Object] }],
   joinedDate: { type: String },

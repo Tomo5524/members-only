@@ -8,23 +8,35 @@
     <link rel='stylesheet', href='/stylesheets/style.css'/> 
   </head>
   <body>        
-    <div class="py-3">                                 
-      <h4>Username: <%= result.username %> </h4>
-      <p>Joined: <%= result.joinedDate %></p> 
-      <a href="<%= result.url %>/update"><button class="btn btn-success">Update </button></a> 
-      <a href="<%= result.url %>/delete"><button class="btn btn-danger">Delete </button></a> 
-      <a href="/"><button type="button" class="btn btn-primary">Go back home</button></a> 
-      <div class="col-6 mx-auto">
-        <% result.messages.forEach(res =>{ %> 
-          <div class="text-center border pt-3 box-radius">
-            <h5>Title: <%= res.title %></h5>
-            <h6>Message: <%= res.message %></h6>
-            <div class="text-right">
-              <p>Posted date: <span><%= res.date %></span></p>
-            </div>              
-          </div>
-        <% }); %>  
-      </div>                            
+    <div class="py-3">
+      <% if (!currentUser) {%>
+        <div class="vh-100 d-flex flex-column justify-content-center align-items-center">
+          <div class="box-radius border p-3">
+            <h1>You need to log in to see your user page</h1>   
+            <a href="/"><button type="button" class="btn btn-primary">Go back home</button></a>  
+            <a href="/login"><button type="button" class="btn btn-primary">Login</button></a>  
+          </div>          
+        </div>        
+      <% } else { %>
+        <h4>Username: <%= result.username %> </h4>
+        <p>Joined: <%= result.joinedDate %></p> 
+        <% if (currentUser.isAdmin) {%>        
+            <a href="<%= result.url %>/edit"><button class="btn btn-success">Update </button></a> 
+            <a href="<%= result.url %>/delete"><button class="btn btn-danger">Delete </button></a>            
+        <% } %>          
+        <a href="/"><button type="button" class="btn btn-primary">Go back home</button></a> 
+        <div class="col-6 mx-auto">
+          <% result.messages.forEach(res =>{ %> 
+            <div class="text-center border pt-3 box-radius">
+              <h5>Title: <%= res.title %></h5>
+              <h6>Message: <%= res.message %></h6>
+              <div class="text-right">
+                <p>Posted date: <span><%= res.date %></span></p>
+              </div>              
+            </div>
+          <% }); %>  
+        </div>    
+      <%}%>                                                                    
     </div>                
   </body>
 </html>
