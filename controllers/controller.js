@@ -235,9 +235,7 @@ exports.admin_post = [
       });
       return;
     } else {
-      // Data from form is valid.
-      // Check if item with same name already exists.
-      // Successful, so render.
+      // Successful, so update document and render.
       User.findByIdAndUpdate(
         req.user.id,
         { $set: { isAdmin: true } },
