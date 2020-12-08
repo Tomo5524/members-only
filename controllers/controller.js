@@ -205,7 +205,6 @@ exports.user_detail = function (req, res, next) {
       return next(err);
     }
     // Successful, so render.
-    // console.log(result, "result////////");
     res.render("user_detail", { result });
   });
 };
@@ -224,11 +223,9 @@ exports.admin_post = [
   // Process request after validation and sanitization.
   (req, res, next) => {
     // Extract the validation errors from a request.
-    // console.log(req.body, "req.body///////");
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       // There are errors. Render the form again with sanitized values/error messages.
-      // console.log(req.body, "req.body///////");
       res.render("admin", {
         title: "Log In As Admin",
         errors: errors.array()[0].msg,
