@@ -20,9 +20,7 @@ router.get("/home", function (req, res, next) {
       return next(err);
     }
     // Successful, so render
-    // console.log(items);
-    // res.render("items", { title: "All the items", items });
-    // res.status(200).json(users);
+    // res.status(200).json(messages);
     res.render("index", { title: "Not So ClubHouse", messages });
   });
   // res.render("index", { title: "Not So ClubHouse" });
