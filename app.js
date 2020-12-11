@@ -1,8 +1,5 @@
 // DEBUG=members-only:* npm run devstart
 
-// sign-up will grant you the ability to see message and who posted
-// admin will  grant you the ability to update any user's info and delete any user
-
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
